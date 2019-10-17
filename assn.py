@@ -23,7 +23,7 @@ def text_from_bits(bits, encoding="utf-8", errors="surrogatepass"):
 
 def binaryFinalResult(a, b, c, d):
     result = a + b + c + d
-    return result
+    return text_from_bits(result)
 
 
 def strToNum(string):
