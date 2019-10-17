@@ -1,15 +1,6 @@
 #!/usr/bin/env python3
 import binascii
 
-
-def hash(a, b, c, d):
-    a = text_to_bits(a)
-    b = text_to_bits(b)
-    c = text_to_bits(c)
-    d = text_to_bits(d)
-    return binaryFinalResult(a, b, c, d)
-
-
 # from https://stackoverflow.com/a/7397689
 def text_to_bits(text, encoding="utf-8", errors="surrogatepass"):
     bits = bin(int.from_bytes(text.encode(encoding, errors), "big"))[2:]
@@ -34,6 +25,28 @@ def strToNum(string):
         temp += str(ord(char))
     return temp
 
+def bitShift(ary):
+    shiftVal = 3
+    intAry = []
+    rtnString = ''
+
+    for x in ary:
+        intAry.append(ord(x))
+
+    for y in intAry:
+        newString = str(y << shiftVal)
+        rtnString += newString
+
+    return rtnString
+
+def hash(plainString):
+    # hashed = plainString
+    n = len(plainString)//4
+    c = plainString[n*2:n*3]
+    shiftC = bitShift(c)
+    # hashed = A + B + shiftC + D
+    hashed = shiftC
+    return hashed
 
 def main():
     """ Main entry point of the app """
