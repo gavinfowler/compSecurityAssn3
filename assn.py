@@ -1,9 +1,27 @@
 #!/usr/bin/env python3
 from textwrap import wrap
 
+def bitShift(ary):
+    shiftVal = 3
+    intAry = []
+    rtnString = ''
+
+    for x in ary:
+        intAry.append(ord(x))
+
+    for y in intAry:
+        newString = str(y << shiftVal)
+        rtnString += newString
+
+    return rtnString
+
 def hash(plainString):
-    hashed = plainString
-    # do hashing stuff here
+    # hashed = plainString
+    n = len(plainString)//4
+    c = plainString[n*2:n*3]
+    shiftC = bitShift(c)
+    # hashed = A + B + shiftC + D
+    hashed = shiftC
     return hashed
 
 def main():
