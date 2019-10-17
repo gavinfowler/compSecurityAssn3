@@ -3,21 +3,19 @@ import binascii
 
 # from https://stackoverflow.com/a/7397689
 def text_to_bits(text, encoding="utf-8", errors="surrogatepass"):
+    """ Takes text and return a string of binary """
     bits = bin(int.from_bytes(text.encode(encoding, errors), "big"))[2:]
     return bits.zfill(8 * ((len(bits) + 7) // 8))
 
 
 def text_from_bits(bits, encoding="utf-8", errors="surrogatepass"):
+    """ Takes string of binary and return a string """
     n = int(bits, 2)
     return n.to_bytes((n.bit_length() + 7) // 8, "big").decode(encoding, errors) or "\0"
 
 
-def binaryFinalResult(a, b, c, d):
-    result = a + b + c + d
-    return text_from_bits(result)
-
-
 def strToNum(string):
+    """ translate a string to a string of numbers """
     if len(string) <= 0:
         return ""
     temp = ""
@@ -25,10 +23,14 @@ def strToNum(string):
         temp += str(ord(char))
     return temp
 
+def numToBin(string):
+    """ Take a number and return a string of binary """
+    return text_to_bits(str(int(bitShift(string)) % 1234))
+
 def bitShift(ary):
     shiftVal = 3
     intAry = []
-    rtnString = ''
+    rtnString = ""
 
     for x in ary:
         intAry.append(ord(x))
@@ -39,43 +41,41 @@ def bitShift(ary):
 
     return rtnString
 
+def functionF(a,c,d):
+    """ Should return a number """
+    return strToNum(a)
+
+def functionG(a,c,d):
+    """ Should return a number """
+    return strToNum(a)
+
 def hash(plainString):
+    """ Take a string and return hashed value """
     # hashed = plainString
-    n = len(plainString)//4
-    c = plainString[n*2:n*3]
-    shiftC = bitShift(c)
+    n = len(plainString) // 4
+
+    a = plainString[0:n]
+    b = plainString[n : n * 2]
+    c = plainString[n * 2 : n * 3]
+    d = plainString[n * 3 : len(plainString)]
+
+    if len(a) == 0 or len(b) == 0 or len(c) == 0 or len(d) == 0:
+        raise Exception("Error string not long enough, use at least 4 characters")
+
+    numA = numToBin(functionF(a,c,d))
+    numB = numToBin(strToNum(b))
+    shiftC = numToBin(c)
+    numD = numToBin(functionG(a,c,d))
+
     # hashed = A + B + shiftC + D
-    hashed = shiftC
+    hashed = numA + '|' + numB + '|' + shiftC + '|' + numD
     return hashed
+
 
 def main():
     """ Main entry point of the app """
     inputStr = input("Enter string to be hashed: ")
-    n = len(inputStr) // 4
-    a = inputStr[0:n]
-    numA = strToNum(a)
-    b = inputStr[n : n * 2]
-    numB = strToNum(b)
-    c = inputStr[n * 2 : n * 3]
-    numC = strToNum(c)
-    d = inputStr[n * 3 : len(inputStr)]
-    numD = strToNum(d)
-    print(numA)
-    print(numB)
-    print(numC)
-    print(numD)
-
-    print(format(12, "b"))
-    print(format(25, "b"))
-
-    print(format(int("1100", 2) + int("11001", 2), "b"))
-    print(format(int(format(12, "b"), 2) + int(format(25, "b"), 2), "b"))
-
-    print(int(format(int(format(12, "b"), 2) + int(format(25, "b"), 2), "b"), 2))
-
-    if len(a) == 0 or len(b) == 0 or len(c) == 0 or len(d) == 0:
-        raise Exception("Error string not long enough, use at least 4 characters")
-    print(f"Hashed string: {hash(a,b,c,d)}")
+    print(f"Hashed string: {hash(inputStr)}")
 
 
 if __name__ == "__main__":
