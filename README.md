@@ -2,4 +2,6 @@
 
 Run with `python3 assn.py`
 
-For ideas on how to convert from int to binary see main function.
+Deliverable 1: Circuit Diagram is in circuitDiagram.jpeg
+Deliverable 2: The explanation of the diagram and how it meets the criteria is in writeUp.txt
+Deliverable 3: Run with `python3 assn.py`
