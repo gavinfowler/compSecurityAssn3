@@ -25,7 +25,7 @@ def strToNum(string):
 
 def numToBin(string):
     """ Take a number and return a string of binary """
-    return text_to_bits(str(int(bitShift(string)) % 1234))
+    return text_to_bits(str(int(bitShift(string)) % 1000))
 
 def bitShift(ary):
     shiftVal = 3
@@ -82,18 +82,20 @@ def hash(plainString):
 
     numA = numToBin(functionF(a,d))
     numB = numToBin(strToNum(b))
-    shiftC = numToBin(c)
+    numC = bitShift(c)
+    shiftC = numToBin(numC)
     numD = numToBin(functionG(a,b,c,d))
 
     # hashed = A + B + shiftC + D
-    hashed = numA + '|' + numB + '|' + shiftC + '|' + numD
+    # hashed = numA + '|' + numB + '|' + shiftC + '|' + numD
+    hashed = numA + numB + shiftC + numD
     return hashed
 
 
 def main():
     """ Main entry point of the app """
     inputStr = input("Enter string to be hashed: ")
-    print(f"Hashed string: {hash(inputStr)}")
+    print(f"Hashed string: {hash(inputStr.replace(' ', ''))}")
 
 
 if __name__ == "__main__":
