@@ -41,13 +41,31 @@ def bitShift(ary):
 
     return rtnString
 
-def functionF(a,c,d):
-    """ Should return a number """
-    return strToNum(a)
+def functionF(a,d):
+    """ Should return a string of a number """
+    intA = []
+    intD = []
+    rtnString = ''
 
-def functionG(a,c,d):
-    """ Should return a number """
-    return strToNum(a)
+    for x in a:
+        intA.append(ord(x))
+    for y in d:
+        intD.append(ord(y))
+    l = min(len(intA), len(intD))
+    for num in range(l):
+        newString = str(intA[num] ^ intD[num])
+        rtnString += newString
+
+    return rtnString
+
+def functionG(a,b,c,d):
+    """ Should return a string of a number """
+    intArr = []
+    comboArr = a + b + c + d
+    for x in comboArr:
+        intArr.append(ord(x))
+
+    return str(sum(intArr))
 
 def hash(plainString):
     """ Take a string and return hashed value """
@@ -62,10 +80,10 @@ def hash(plainString):
     if len(a) == 0 or len(b) == 0 or len(c) == 0 or len(d) == 0:
         raise Exception("Error string not long enough, use at least 4 characters")
 
-    numA = numToBin(functionF(a,c,d))
+    numA = numToBin(functionF(a,d))
     numB = numToBin(strToNum(b))
     shiftC = numToBin(c)
-    numD = numToBin(functionG(a,c,d))
+    numD = numToBin(functionG(a,b,c,d))
 
     # hashed = A + B + shiftC + D
     hashed = numA + '|' + numB + '|' + shiftC + '|' + numD
