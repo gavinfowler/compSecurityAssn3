@@ -1,0 +1,9 @@
+Our algorithm is computationally efficient as we have limited the outside libraries we
+call on. We also worked our functions to be computationally efficient on their own by
+using basic bit-wise operations. Since our hash function follows a specific algorithm,
+when the program is given the same input then the output will remain the same. We chose
+to set up our algorithm so that before the result is outputted, it goes through a mod
+function which will ensure the result is always a set length and will not reveal any
+information about the original user inputted string. With how we have set up our function,
+such that each part of the string undergoes set functions, it becomes very unlikely that
+two different input strings would result in the same output from our hashing function.
