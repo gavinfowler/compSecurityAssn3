@@ -67,7 +67,30 @@ def functionG(a,b,c,d):
 
     return str(sum(intArr))
 
+def numbersToLetters(number):
+    """
+    Take a string of number and convert into characters
+    """
+    arr = [number[i:i+2] for i in range(0, len(number), 2)]
+    result = ''
+    for i in arr:
+        i = int(i)
+        if(i<=48):
+            i = i + 48
+        result += chr(i)
+    return result
+
 def hash(plainString):
+    """
+    Main hashing function for hashing 
+    Run the hashhelper function 12 times
+    """
+    result = plainString
+    for i in range(0,12):
+        result = hashHelp(result)
+    return result
+
+def hashHelp(plainString):
     """ Take a string and return hashed value """
     # hashed = plainString
     n = len(plainString) // 4
@@ -82,13 +105,13 @@ def hash(plainString):
 
     numA = numToBin(functionF(a,d))
     numB = numToBin(strToNum(b))
-    numC = bitShift(c)
-    shiftC = numToBin(numC)
+    numC = numToBin(bitShift(c))
     numD = numToBin(functionG(a,b,c,d))
 
-    # hashed = A + B + shiftC + D
-    # hashed = numA + '|' + numB + '|' + shiftC + '|' + numD
-    hashed = numA + numB + shiftC + numD
+    # hashed = A + B + numC + D
+    # hashed = numA + '|' + numB + '|' + numC + '|' + numD
+    hashed = text_from_bits(numD + numA + numB + numC)
+    hashed = numbersToLetters(hashed)
     return hashed
 
 
