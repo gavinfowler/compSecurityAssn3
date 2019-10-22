@@ -68,6 +68,9 @@ def functionG(a,b,c,d):
     return str(sum(intArr))
 
 def numbersToLetters(number):
+    """
+    Take a string of number and convert into characters
+    """
     arr = [number[i:i+2] for i in range(0, len(number), 2)]
     result = ''
     for i in arr:
@@ -78,6 +81,10 @@ def numbersToLetters(number):
     return result
 
 def hash(plainString):
+    """
+    Main hashing function for hashing 
+    Run the hashhelper function 12 times
+    """
     result = plainString
     for i in range(0,12):
         result = hashHelp(result)
